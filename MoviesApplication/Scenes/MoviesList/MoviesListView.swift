@@ -9,21 +9,25 @@ import SwiftUI
 
 struct MoviesListView: View {
     @ObservedObject var viewModel = MoviesListViewModel()
-
+    
     var body: some View {
         NavigationView {
             List(viewModel.movies) { movie in
                 NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
-                    VStack(alignment: .leading) {
-                        Text(movie.title)
-                            .font(.headline)
-                        Text(movie.overview)
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+                    HStack{
+                        DownloadableImage(url: viewModel.posterURL(for: movie.posterPath))
+                            .frame(width: 90, height: 90)
+                        VStack(alignment: .leading) {
+                            Text(movie.title)
+                                .font(.headline)
+                            Text(movie.releaseDate)
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
             }
-            .navigationBarTitle("Movie List")
+            .navigationBarTitle("Movies List")
         }
         .onAppear {
             self.viewModel.fetchMovies()
