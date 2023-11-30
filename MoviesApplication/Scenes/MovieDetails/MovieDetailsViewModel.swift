@@ -37,15 +37,19 @@ class MovieDetailsViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
-}
+    var dateDisplay: String {
+        guard let currentDate = movieDetails?.releaseDate  else {return ""}
+        // Create a date formatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy" // Set the desired format to extract the year
 
-
-
-extension MovieDetailsViewModel {
+      return dateFormatter.string(from: currentDate)
+        
+    }
     func posterURL(for path: String?) -> URL? {
         guard let path = path else { return nil }
         let baseURL = "https://image.tmdb.org/t/p/w500/"
-//        print(">>> \(URL(string: baseURL + path))")
         return URL(string: baseURL + path)
     }
 }
+

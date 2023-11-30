@@ -38,10 +38,16 @@ class MoviesListViewModel: ObservableObject {
             })
             .store(in: &cancellables)
     }
+    func display(date: Date)->String{
+        // Create a date formatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy" // Set the desired format to extract the year
+
+      return dateFormatter.string(from: date)
+    }
     func posterURL(for path: String?) -> URL? {
         guard let path = path else { return nil }
         let baseURL = "https://image.tmdb.org/t/p/w200/"
-    //        print(">>> \(URL(string: baseURL + path))")
         return URL(string: baseURL + path)
     }
    

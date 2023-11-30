@@ -13,7 +13,15 @@ import Combine
 struct MovieAPIClient: APIClient {
     private let apiKey = "c9856d0cb57c3f14bf75bdc6c063b8f3"
     let baseUrl = "https://api.themoviedb.org/3/"
-
+    private var jsonDecoder: JSONDecoder = {
+        // Create a custom date formatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        return decoder
+    }()
     func fetchData<T: Decodable>(for endpoint: EndPoint) -> AnyPublisher<T, Error> {
         guard var urlComponents = URLComponents(string: "\(baseUrl)\(endpoint.path)") else {
             return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
@@ -41,7 +49,7 @@ struct MovieAPIClient: APIClient {
 
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: T.self, decoder: JSONDecoder())
+            .decode(type: T.self, decoder: jsonDecoder)
             .eraseToAnyPublisher()
     }
 }

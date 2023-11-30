@@ -38,7 +38,7 @@ struct MoviesListView: View {
             VStack(alignment: .leading) {
                 Text(movie.title)
                     .font(.headline)
-                Text(movie.releaseDate)
+                Text(viewModel.display(date: movie.releaseDate))
                     .font(.subheadline)
                     .foregroundColor(.gray)
             }

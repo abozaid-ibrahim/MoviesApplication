@@ -22,7 +22,7 @@ struct MovieDetailView: View {
                                 .font(.title)
                                 .foregroundColor(.white) // Adjust text color based on your design
                             
-                            Text("Year: \(String(movieDetail.releaseDate.prefix(4)))")
+                            Text("Year: \(viewModel.dateDisplay)")
                                 .font(.headline)
                                 .foregroundColor(.white) // Adjust text color based on your design
                         }.padding()
