@@ -7,35 +7,51 @@
 
 import Foundation
 import SwiftUI
-
 struct MovieDetailView: View {
-    @ObservedObject var viewModel = MoviesListViewModel()
+    @ObservedObject var viewModel = MovieDetailsViewModel()
     let movieID: Int
-
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            if let movieDetail = viewModel.movies.first(where: { $0.id == movieID }) {
-                DownloadableImage(url:viewModel.posterURL(for: movieDetail.posterPath))
-                .frame(height: 200)
-
-                Text(movieDetail.title)
-                    .font(.title)
-                    .padding()
-
-                Text("Year: \(String(movieDetail.releaseDate.prefix(4)))")
-                    .font(.headline)
-                    .padding()
-
-                Text(movieDetail.overview)
-                    .padding()
-            } else {
-                Text("Movie not found")
+        ScrollView {
+            VStack(alignment: .leading) {
+                if let movieDetail = viewModel.movieDetails {
+                    ZStack(alignment: .bottomLeading) {
+                        DownloadableImage(url: viewModel.posterURL(for: movieDetail.posterPath), width:  ThumbnailsDimentions.width, height:  ThumbnailsDimentions.height)
+                        VStack(alignment: .leading) {
+                            Text(movieDetail.title)
+                                .font(.title)
+                                .foregroundColor(.white) // Adjust text color based on your design
+                            
+                            Text("Year: \(String(movieDetail.releaseDate.prefix(4)))")
+                                .font(.headline)
+                                .foregroundColor(.white) // Adjust text color based on your design
+                        }.padding()
+                    }.frame(height: ThumbnailsDimentions.height)
+                    Spacer()
+                    Text(movieDetail.overview)
+                        .padding()
+                    
+                } else {
+                    Text("Movie not found")
+                }
             }
         }
         .onAppear {
             self.viewModel.fetchMovieDetail(movieID: movieID) { _ in }
         }
+        .navigationBarHidden(false)
+        .edgesIgnoringSafeArea(.top)
+        
+        
+        
+        
+        
     }
+    struct ThumbnailsDimentions{
+        static let height = UIScreen.main.bounds.height * 0.6
+        static let width = UIScreen.main.bounds.width
+    }
+    
 }
 
 struct MovieListView_Previews: PreviewProvider {
