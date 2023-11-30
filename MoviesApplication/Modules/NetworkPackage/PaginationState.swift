@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PaginationState{
+enum PaginationState {
     case isLoading
     case idle
     case error

@@ -12,12 +12,9 @@ struct Movie: Codable, Identifiable {
     let title: String
     let overview: String
     let posterPath: String?
-    let releaseDate: Date 
-
-    
+    let releaseDate: Date
 }
 
 struct MovieResults: Codable {
     let results: [Movie]
 }
-

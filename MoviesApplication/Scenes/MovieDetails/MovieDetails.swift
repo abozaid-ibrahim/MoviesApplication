@@ -12,5 +12,4 @@ struct MovieDetail: Codable {
     let overview: String
     let releaseDate: Date
     let posterPath: String?
-
 }

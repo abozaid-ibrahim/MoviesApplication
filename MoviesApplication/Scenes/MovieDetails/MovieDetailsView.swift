@@ -10,18 +10,18 @@ import SwiftUI
 struct MovieDetailView: View {
     @ObservedObject var viewModel = MovieDetailsViewModel()
     let movieID: Int
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 if let movieDetail = viewModel.movieDetails {
                     ZStack(alignment: .bottomLeading) {
-                        DownloadableImage(url: viewModel.posterURL(for: movieDetail.posterPath), width:  ThumbnailsDimentions.width, height:  ThumbnailsDimentions.height)
+                        DownloadableImage(url: viewModel.posterURL(for: movieDetail.posterPath), width: ThumbnailsDimentions.width, height: ThumbnailsDimentions.height)
                         VStack(alignment: .leading) {
                             Text(movieDetail.title)
                                 .font(.title)
                                 .foregroundColor(.white) // Adjust text color based on your design
-                            
+
                             Text("Year: \(viewModel.dateDisplay)")
                                 .font(.headline)
                                 .foregroundColor(.white) // Adjust text color based on your design
@@ -30,7 +30,7 @@ struct MovieDetailView: View {
                     Spacer()
                     Text(movieDetail.overview)
                         .padding()
-                    
+
                 } else {
                     Text("Movie not found")
                 }
@@ -41,17 +41,12 @@ struct MovieDetailView: View {
         }
         .navigationBarHidden(false)
         .edgesIgnoringSafeArea(.top)
-        
-        
-        
-        
-        
     }
-    struct ThumbnailsDimentions{
+
+    enum ThumbnailsDimentions {
         static let height = UIScreen.main.bounds.height * 0.6
         static let width = UIScreen.main.bounds.width
     }
-    
 }
 
 struct MovieListView_Previews: PreviewProvider {
