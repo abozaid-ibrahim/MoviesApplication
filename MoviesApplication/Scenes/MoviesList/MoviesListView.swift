@@ -13,7 +13,7 @@ struct MoviesListView: View {
     var body: some View {
         NavigationView {
             List(viewModel.movies) { movie in
-                NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                NavigationLink(destination: MovieDetailsView(movieID: movie.id)) {
                     VStack {
                         listViewRow(for: movie)
                         if viewModel.movies.isLastItem(movie) {
@@ -31,7 +31,9 @@ struct MoviesListView: View {
 
     private func listViewRow(for movie: Movie) -> some View {
         HStack {
-            DownloadableImage(url: viewModel.posterURL(for: movie.posterPath), width: ThumbnailsDimentions.width, height: ThumbnailsDimentions.height)
+            DownloadableImage(url: viewModel.posterURL(for: movie.posterPath),
+                              width: ThumbnailsDimentions.width,
+                              height: ThumbnailsDimentions.height)
                 .cornerRadius(ThumbnailsDimentions.cornerRadius)
 
             VStack(alignment: .leading) {

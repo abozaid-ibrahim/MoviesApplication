@@ -1,5 +1,5 @@
 //
-//  MovieHttpClient.swift
+//  MovieService.swift
 //  MoviesApplication
 //
 //  Created by abuzeid on 30.11.23.
@@ -9,11 +9,11 @@ import Combine
 import Foundation
 
 final class MovieService {
-    let api = MovieAPIClient()
+    private let api = MovieAPIClient()
     private var currentPage = 0
-    // Should be updated by the API, for now will set it to a default value 5
+    // TODO: Should be updated by the API, for now will set it to a default value 5
     private var totalPages = 15
-    var fetchMoviesState: PaginationState = .idle
+    private(set) var fetchMoviesState: PaginationState = .idle
 
     func fetchMovies() -> AnyPublisher<MovieResults, Error> {
         currentPage += 1
@@ -28,19 +28,19 @@ final class MovieService {
         return api.fetchData(for: EndPoint(path: "discover/movie", method: .get, parameters: ["page": currentPage]))
             .receive(on: DispatchQueue.main) // Ensure UI updates are on the main thread
             .handleEvents(receiveCompletion: { [weak self] completion in
-                guard let self = self else { return }
+                guard let strongSelf = self else { return }
                 switch completion {
                 case .finished:
-                    self.fetchMoviesState = .idle
+                    strongSelf.fetchMoviesState = .idle
                 case .failure:
-                    currentPage -= 1
-                    self.fetchMoviesState = .error
+                    strongSelf.currentPage -= 1
+                    strongSelf.fetchMoviesState = .error
                 }
             })
             .eraseToAnyPublisher()
     }
 
-    func fetchMovieDetail(movieID: Int) -> AnyPublisher<MovieDetail, Error> {
+    func fetchMovieDetail(movieID: Int) -> AnyPublisher<MovieDetails, Error> {
         return api.fetchData(for: EndPoint(path: "movie/\(movieID)", method: .get, parameters: [:]))
     }
 }

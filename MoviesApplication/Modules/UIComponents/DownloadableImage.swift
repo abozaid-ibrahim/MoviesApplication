@@ -29,8 +29,9 @@ struct DownloadableImage: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: width, height: height)
+                    .accessibilityLabel("Failed to load header image")
             @unknown default:
-                fatalError("Unknown case")
+                fatalError("An unrecoverable error occurred!")
             }
         }
         .frame(width: width, height: height)

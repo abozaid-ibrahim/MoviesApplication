@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-struct MovieDetailView: View {
+struct MovieDetailsView: View {
     @ObservedObject var viewModel = MovieDetailsViewModel()
     let movieID: Int
 
@@ -16,7 +16,9 @@ struct MovieDetailView: View {
             VStack(alignment: .leading) {
                 if let movieDetail = viewModel.movieDetails {
                     ZStack(alignment: .bottomLeading) {
-                        DownloadableImage(url: viewModel.posterURL(for: movieDetail.posterPath), width: ThumbnailsDimentions.width, height: ThumbnailsDimentions.height)
+                        DownloadableImage(url: viewModel.posterURL(for: movieDetail.posterPath),
+                                          width: ThumbnailsDimentions.width,
+                                          height: ThumbnailsDimentions.height)
                         VStack(alignment: .leading) {
                             Text(movieDetail.title)
                                 .font(.title)
@@ -26,11 +28,11 @@ struct MovieDetailView: View {
                                 .font(.headline)
                                 .foregroundColor(.white) // Adjust text color based on your design
                         }.padding()
-                    }.frame(height: ThumbnailsDimentions.height)
+                    }
+                    .frame(height: ThumbnailsDimentions.height)
                     Spacer()
                     Text(movieDetail.overview)
                         .padding()
-
                 } else {
                     Text("Movie not found")
                 }

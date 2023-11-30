@@ -8,12 +8,8 @@
 import Combine
 import Foundation
 
-// TODO:
-// pagination
-
-class MoviesListViewModel: ObservableObject {
+final class MoviesListViewModel: ObservableObject {
     @Published var movies: [Movie] = []
-
     private var cancellables: Set<AnyCancellable> = []
     private let movieService: MovieService
 
@@ -44,14 +40,13 @@ class MoviesListViewModel: ObservableObject {
     func display(date: Date) -> String {
         // Create a date formatter
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy" // Set the desired format to extract the year
-
+        dateFormatter.dateFormat = "yyyy"
         return dateFormatter.string(from: date)
     }
 
     func posterURL(for path: String?) -> URL? {
-        guard let path = path else { return nil }
+        guard let pathValue = path else { return nil }
         let baseURL = "https://image.tmdb.org/t/p/w200/"
-        return URL(string: baseURL + path)
+        return URL(string: baseURL + pathValue)
     }
 }

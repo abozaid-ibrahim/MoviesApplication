@@ -15,7 +15,7 @@
 		6C1199BE2B17AA5F00FC4F43 /* DownloadableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1199BD2B17AA5F00FC4F43 /* DownloadableImage.swift */; };
 		6C1199C12B17ABAC00FC4F43 /* MovieAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1199C02B17ABAC00FC4F43 /* MovieAPIClient.swift */; };
 		6C1199C32B17B35B00FC4F43 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1199C22B17B35B00FC4F43 /* HTTPMethod.swift */; };
-		6C1199C52B1874CC00FC4F43 /* MovieHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1199C42B1874CC00FC4F43 /* MovieHttpClient.swift */; };
+		6C1199C52B1874CC00FC4F43 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1199C42B1874CC00FC4F43 /* MovieService.swift */; };
 		6C1199C72B187AEE00FC4F43 /* RandomAccessCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1199C62B187AEE00FC4F43 /* RandomAccessCollectionExtension.swift */; };
 		6C1199CD2B187CBD00FC4F43 /* PaginationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1199CC2B187CBD00FC4F43 /* PaginationState.swift */; };
 		6C50C4972B1665BF007A56E9 /* MoviesApplicationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C50C4962B1665BF007A56E9 /* MoviesApplicationApp.swift */; };
@@ -53,7 +53,7 @@
 		6C1199BD2B17AA5F00FC4F43 /* DownloadableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadableImage.swift; sourceTree = "<group>"; };
 		6C1199C02B17ABAC00FC4F43 /* MovieAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIClient.swift; sourceTree = "<group>"; };
 		6C1199C22B17B35B00FC4F43 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		6C1199C42B1874CC00FC4F43 /* MovieHttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHttpClient.swift; sourceTree = "<group>"; };
+		6C1199C42B1874CC00FC4F43 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 		6C1199C62B187AEE00FC4F43 /* RandomAccessCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAccessCollectionExtension.swift; sourceTree = "<group>"; };
 		6C1199CC2B187CBD00FC4F43 /* PaginationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationState.swift; sourceTree = "<group>"; };
 		6C50C4932B1665BF007A56E9 /* MoviesApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +99,7 @@
 				6C1199AE2B179AA500FC4F43 /* MoviesListViewModel.swift */,
 				6C50C4982B1665BF007A56E9 /* MoviesListView.swift */,
 				6C1199B42B179B7D00FC4F43 /* Movie.swift */,
-				6C1199C42B1874CC00FC4F43 /* MovieHttpClient.swift */,
+				6C1199C42B1874CC00FC4F43 /* MovieService.swift */,
 			);
 			path = MoviesList;
 			sourceTree = "<group>";
@@ -218,6 +218,7 @@
 				6C50C48F2B1665BF007A56E9 /* Sources */,
 				6C50C4902B1665BF007A56E9 /* Frameworks */,
 				6C50C4912B1665BF007A56E9 /* Resources */,
+				6C1199CF2B18F64C00FC4F43 /* Run Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -296,6 +297,9 @@
 				Base,
 			);
 			mainGroup = 6C50C48A2B1665BF007A56E9;
+			packageReferences = (
+				6C1199CE2B18F63C00FC4F43 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			productRefGroup = 6C50C4942B1665BF007A56E9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -333,6 +337,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6C1199CF2B18F64C00FC4F43 /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint > lint_results.txt\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6C50C48F2B1665BF007A56E9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -350,7 +375,7 @@
 				6C1199B92B179E2E00FC4F43 /* MovieDetails.swift in Sources */,
 				6C1199C32B17B35B00FC4F43 /* HTTPMethod.swift in Sources */,
 				6C1199C12B17ABAC00FC4F43 /* MovieAPIClient.swift in Sources */,
-				6C1199C52B1874CC00FC4F43 /* MovieHttpClient.swift in Sources */,
+				6C1199C52B1874CC00FC4F43 /* MovieService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +540,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MoviesApplication/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -543,6 +569,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MoviesApplication/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -674,6 +701,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6C1199CE2B18F63C00FC4F43 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 6C50C48B2B1665BF007A56E9 /* Project object */;
 }

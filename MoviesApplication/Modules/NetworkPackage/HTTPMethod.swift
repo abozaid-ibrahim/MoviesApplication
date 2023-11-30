@@ -10,6 +10,7 @@ import Foundation
 
 protocol APIClient {
     var baseUrl: String { get }
+
     func fetchData<T: Decodable>(for endpoint: EndPoint) -> AnyPublisher<T, Error>
 }
 
