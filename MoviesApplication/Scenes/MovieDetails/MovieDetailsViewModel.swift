@@ -8,28 +8,29 @@
 import Combine
 import Foundation
 
-class MovieDetailsViewModel: ObservableObject {
+final class MovieDetailsViewModel: ObservableObject {
     @Published var movieDetails: MovieDetails?
 
     private var cancellables: Set<AnyCancellable> = []
-    private let movieService: MovieService
+    private let dataSource: MovieDataSource
 
-    init(movieService: MovieService = MovieService()) {
-        self.movieService = movieService
+    init(dataSource: MovieDataSource = MovieAPIDataSource()) {
+        self.dataSource = dataSource
     }
 
     func fetchMovieDetail(movieID: Int, completion: @escaping (MovieDetails) -> Void) {
-        movieService.fetchMovieDetail(movieID: movieID)
+        dataSource.fetchMovieDetail(movieID: movieID)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
+
                 switch completion {
                 case .finished:
                     break
                 case let .failure(error):
                     print("Error: \(error.localizedDescription)")
                 }
-            }, receiveValue: { movieDetail in
-                self.movieDetails = movieDetail
+            }, receiveValue: { [weak self] movieDetail in
+                self?.movieDetails = movieDetail
                 completion(movieDetail)
             })
             .store(in: &cancellables)
@@ -37,7 +38,6 @@ class MovieDetailsViewModel: ObservableObject {
 
     var dateDisplay: String {
         guard let currentDate = movieDetails?.releaseDate else { return "" }
-        // Create a date formatter
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
 

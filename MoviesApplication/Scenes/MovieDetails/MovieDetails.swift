@@ -10,6 +10,6 @@ import Foundation
 struct MovieDetails: Codable {
     let title: String
     let overview: String
-    let releaseDate: Date
     let posterPath: String?
+    let releaseDate: Date
 }

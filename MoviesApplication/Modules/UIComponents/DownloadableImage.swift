@@ -10,9 +10,9 @@ import SwiftUI
 
 struct DownloadableImage: View {
     let url: URL?
-
     let width: CGFloat
     let height: CGFloat
+
     var body: some View {
         AsyncImage(url: url) { phase in
             switch phase {

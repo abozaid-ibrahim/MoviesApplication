@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 struct MovieDetailsView: View {
-    @ObservedObject var viewModel = MovieDetailsViewModel()
+    @ObservedObject private var viewModel = MovieDetailsViewModel()
     let movieID: Int
 
     var body: some View {
@@ -22,11 +22,11 @@ struct MovieDetailsView: View {
                         VStack(alignment: .leading) {
                             Text(movieDetail.title)
                                 .font(.title)
-                                .foregroundColor(.white) // Adjust text color based on your design
+                                .foregroundColor(.white)
 
                             Text("Year: \(viewModel.dateDisplay)")
                                 .font(.headline)
-                                .foregroundColor(.white) // Adjust text color based on your design
+                                .foregroundColor(.white)
                         }.padding()
                     }
                     .frame(height: ThumbnailsDimentions.height)
@@ -45,7 +45,7 @@ struct MovieDetailsView: View {
         .edgesIgnoringSafeArea(.top)
     }
 
-    enum ThumbnailsDimentions {
+    private enum ThumbnailsDimentions {
         static let height = UIScreen.main.bounds.height * 0.6
         static let width = UIScreen.main.bounds.width
     }

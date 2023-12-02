@@ -11,8 +11,8 @@ import Foundation
 struct MovieAPIClient: APIClient {
     private let apiKey = "c9856d0cb57c3f14bf75bdc6c063b8f3"
     let baseUrl = "https://api.themoviedb.org/3/"
+
     private var jsonDecoder: JSONDecoder = {
-        // Create a custom date formatter
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let decoder = JSONDecoder()

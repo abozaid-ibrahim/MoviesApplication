@@ -11,18 +11,18 @@ import Foundation
 final class MoviesListViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     private var cancellables: Set<AnyCancellable> = []
-    private let movieService: MovieService
+    private let dataSource: MovieDataSource
 
-    init(movieService: MovieService = MovieService()) {
-        self.movieService = movieService
+    init(dataSource: MovieDataSource = MovieAPIDataSource()) {
+        self.dataSource = dataSource
     }
 
     var paginationState: PaginationState {
-        return movieService.fetchMoviesState
+        return dataSource.fetchMoviesState
     }
 
     func fetchMovies() {
-        movieService.fetchMovies()
+        dataSource.fetchMovies()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -38,7 +38,6 @@ final class MoviesListViewModel: ObservableObject {
     }
 
     func display(date: Date) -> String {
-        // Create a date formatter
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
         return dateFormatter.string(from: date)

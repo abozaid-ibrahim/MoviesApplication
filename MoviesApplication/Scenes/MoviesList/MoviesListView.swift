@@ -63,17 +63,14 @@ struct MoviesListView: View {
             viewModel.fetchMovies()
         }
     }
+
+    private enum ThumbnailsDimentions {
+        static let width: CGFloat = (UIScreen.main.bounds.width / 4) * 0.75
+        static let height: CGFloat = (UIScreen.main.bounds.width / 3) * 0.75
+        static let cornerRadius: CGFloat = 16
+    }
 }
 
 #Preview {
     MoviesListView()
-}
-
-// images dimenstions
-// Scrolling smoothly
-
-enum ThumbnailsDimentions {
-    static let width: CGFloat = (UIScreen.main.bounds.width / 4) * 0.75
-    static let height: CGFloat = (UIScreen.main.bounds.width / 3) * 0.75
-    static let cornerRadius: CGFloat = 16
 }
