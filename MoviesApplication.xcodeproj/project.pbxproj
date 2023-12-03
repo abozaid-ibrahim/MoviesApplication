@@ -301,7 +301,6 @@
 			);
 			mainGroup = 6C50C48A2B1665BF007A56E9;
 			packageReferences = (
-				6C1199CE2B18F63C00FC4F43 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 6C50C4942B1665BF007A56E9 /* Products */;
 			projectDirPath = "";
@@ -705,17 +704,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		6C1199CE2B18F63C00FC4F43 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.54.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 6C50C48B2B1665BF007A56E9 /* Project object */;
 }
