@@ -13,7 +13,7 @@ final class MovieAPIDataSourceTests: XCTestCase {
     }
 
     func testFetchMoviesPaginationNotExceedingTotalPages() {
-        setupDataSource(isSuccess: true, endPointPath: "movies")
+        setupDataSource(isSuccess: true, endPointPath: .movies)
         let expectation = XCTestExpectation(description: "Movies fetch result")
         var resultError: Error?
         for _ in 0 ... 9 {
@@ -37,17 +37,17 @@ final class MovieAPIDataSourceTests: XCTestCase {
     }
 
     func testFetchMoviesSuccess() {
-        setupDataSource(isSuccess: true, endPointPath: "movies")
+        setupDataSource(isSuccess: true, endPointPath: .movies)
         assertFetchMoviesResult(expectedError: nil)
     }
 
     func testFetchMoviesFailure() {
-        setupDataSource(isSuccess: false, endPointPath: "movies")
+        setupDataSource(isSuccess: false, endPointPath: .movies)
         assertFetchMoviesResult(expectedError: NetworkError.invalidURL)
     }
 
-    private func setupDataSource(isSuccess: Bool, endPointPath: String) {
-        dataSource = MovieAPIDataSource(apiClient: MockMovieAPI(isSuccess: isSuccess, endPointPath: endPointPath))
+    private func setupDataSource(isSuccess: Bool, endPointPath: MockMovieAPI.EndPointPath) {
+        dataSource = MovieAPIDataSource(apiClient: MockMovieAPI(isSuccess: isSuccess, endPointPath: endPointPath.rawValue))
     }
 
     private func assertFetchMoviesResult(expectedError: NetworkError?) {
