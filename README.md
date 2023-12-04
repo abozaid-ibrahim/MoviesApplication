@@ -16,7 +16,6 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
-[![Stars][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
@@ -29,20 +28,11 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Movies Application</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
+    Simple UI to show list of movies and thier details
+  
 </p>
 
 
@@ -77,8 +67,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![movies list]](./images/list.png)
-[![movie details]](./images/details.png)
+| List | Details |
+|  :---:  |  :---:  |
+| <a href="./images/list.png" width=40%/> | <a href="./images/details.png" width=40%/> |
 
 IOS application that displays the list of trending movies, when we select one movie it shows more details about it. As a data provider for more [details](./Requirements.pdf) 
 
@@ -87,9 +78,7 @@ IOS application that displays the list of trending movies, when we select one mo
 
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 * [XCode](https://getbootstrap.com)
-* [Bazel](https://jquery.com)
-* [Laravel](https://laravel.com)
-
+* [Bazel](https://docs.bazel.build/versions/5.0.0/tutorial/ios-app.html)
 
 
 <!-- GETTING STARTED -->
@@ -113,7 +102,7 @@ at the current state you have to install the pre requisites manually at more adv
 
 
 
-<!-- ROADMAP -->
+<!-- Architecture -->
 ## Architecture
 
 Using a modular architecture where you have couple of modules contains the functionality could be used later on by SPM or on other choice according to the business logic and tech team needs. 
@@ -150,9 +139,9 @@ Abozaid Ibrahim - [@https://linkedin.com/in/abozaid-ibrahim](https://linkedin.co
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/abozaid-ibrahim/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/abozaid-ibrahim/repo/graphs/contributors
+[contributors-url]: https://github.com/abozaid-ibrahim/MoviesApplication/graphs/contributors
 [issues-shield]: https://img.shields.io/github/issues/abozaid-ibrahim/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/abozaid-ibrahim/repo/issues
+[issues-url]: https://github.com/abozaid-ibrahim/MoviesApplication/issues
 [license-shield]: https://img.shields.io/github/license/abozaid-ibrahim/repo.svg?style=for-the-badge
 [license-url]: https://github.com/abozaid-ibrahim/MoviesApplication/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
