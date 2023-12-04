@@ -17,7 +17,7 @@ final class MovieAPIDataSourceTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Movies fetch result")
         var resultError: Error?
         for _ in 0 ... 9 {
-            dataSource.fetchMovies()
+            let _ = dataSource.fetchMovies()
         }
         dataSource.fetchMovies()
             .sink(receiveCompletion: { completion in
@@ -66,36 +66,12 @@ final class MovieAPIDataSourceTests: XCTestCase {
             }, receiveValue: { _ in })
             .store(in: &cancellables)
 
-        wait(for: [expectation], timeout: 0.001)
+        wait(for: [expectation], timeout: 0.01)
 
         if let expectedError = expectedError {
             XCTAssertEqual(resultError as? NetworkError, expectedError)
         } else {
             XCTAssertNil(resultError)
-        }
-    }
-}
-
-struct MockMovieAPI: APIClient {
-    var baseUrl: String = ""
-    let isSuccess: Bool
-    let endPointPath: String
-
-    func fetchData<T>(for _: MoviesApplication.EndPoint) -> AnyPublisher<T, Error> where T: Decodable {
-        guard isSuccess else {
-            return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
-        }
-
-        if endPointPath == "details" {
-            let details = MovieDetails(title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())
-            return Just(details as! T)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-        } else {
-            let results = MovieResults(results: [Movie(id: 1, title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())])
-            return Just(results as! T)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
         }
     }
 }

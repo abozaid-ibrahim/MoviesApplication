@@ -26,6 +26,7 @@
 		6C50C4A82B1665C1007A56E9 /* MoviesListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C50C4A72B1665C1007A56E9 /* MoviesListViewModelTests.swift */; };
 		6C50C4B22B1665C1007A56E9 /* MoviesApplicationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C50C4B12B1665C1007A56E9 /* MoviesApplicationUITests.swift */; };
 		6C50C4B42B1665C1007A56E9 /* MoviesApplicationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C50C4B32B1665C1007A56E9 /* MoviesApplicationUITestsLaunchTests.swift */; };
+		6C8DB9AF2B1E0E7800A98415 /* MockMovieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8DB9AE2B1E0E7800A98415 /* MockMovieAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		6C50C4AD2B1665C1007A56E9 /* MoviesApplicationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesApplicationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C50C4B12B1665C1007A56E9 /* MoviesApplicationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesApplicationUITests.swift; sourceTree = "<group>"; };
 		6C50C4B32B1665C1007A56E9 /* MoviesApplicationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesApplicationUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6C8DB9AE2B1E0E7800A98415 /* MockMovieAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockMovieAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 		6C50C4A62B1665C1007A56E9 /* MoviesApplicationTests */ = {
 			isa = PBXGroup;
 			children = (
+				6C8DB9AE2B1E0E7800A98415 /* MockMovieAPI.swift */,
 				6C50C4A72B1665C1007A56E9 /* MoviesListViewModelTests.swift */,
 				6C1199D02B195E1000FC4F43 /* MovieAPIDataSourceTests.swift */,
 			);
@@ -385,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C8DB9AF2B1E0E7800A98415 /* MockMovieAPI.swift in Sources */,
 				6C1199D12B195E1000FC4F43 /* MovieAPIDataSourceTests.swift in Sources */,
 				6C50C4A82B1665C1007A56E9 /* MoviesListViewModelTests.swift in Sources */,
 			);

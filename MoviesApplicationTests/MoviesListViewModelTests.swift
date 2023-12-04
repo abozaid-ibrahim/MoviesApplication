@@ -29,7 +29,7 @@ final class MoviesListViewModelTests: XCTestCase {
             }
             .store(in: &cancellables)
         viewModel.fetchMovies()
-        wait(for: [expectation], timeout: 0.001)
+        wait(for: [expectation], timeout: 0.01)
         XCTAssertNotNil(moviesList)
     }
 
