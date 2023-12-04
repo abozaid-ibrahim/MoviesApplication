@@ -16,12 +16,10 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
+[![Stars][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
@@ -66,9 +64,8 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#folders-structure">Folders Structure</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -80,24 +77,17 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![movies list]](./images/list.png)
+[![movie details]](./images/details.png)
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+IOS application that displays the list of trending movies, when we select one movie it shows more details about it. As a data provider for more [details](./Requirements.pdf) 
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
 
 ### Built With
 
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* [XCode](https://getbootstrap.com)
+* [Bazel](https://jquery.com)
 * [Laravel](https://laravel.com)
 
 
@@ -110,57 +100,33 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+at the current state you have to install the pre requisites manually at more advanced state can setup the 
+* Swiftlint
   ```sh
-  npm install npm@latest -g
+  brew install swiftlint
   ```
 
 ### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+* Select the build scheme which can be found right after the stop button on the top left of the IDE
+* [Command(cmd)] + B - Build app
+* [Command(cmd)] + R - Run app
 
 
 
 <!-- ROADMAP -->
-## Roadmap
+## Architecture
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
+Using a modular architecture where you have couple of modules contains the functionality could be used later on by SPM or on other choice according to the business logic and tech team needs. 
+
+Used basic MVVVM architecture to apply the use case needs, for more advanced usage could be there better alternative like RIBs, Viper, Clean Architecture, ...etc
+
+Used both [SwiftLint](https://github.com/realm/SwiftLint), [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) by Homebrew. 
 
 
 
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
+## Folders Structure
+* Modules: Include separate modules, components, extensions, ...etc.
+* Scenes: Group of app UI screens.
 
 
 <!-- LICENSE -->
@@ -169,15 +135,25 @@ Contributions are what make the open source community such an amazing place to b
 Distributed under the MIT License. See `LICENSE` for more information.
 
 
-
 <!-- CONTACT -->
 ## Contact
 
 Abozaid Ibrahim - [@https://linkedin.com/in/abozaid-ibrahim](https://linkedin.com/in/abozaid-ibrahim) - abozaid.ibrahim11@gmail.com
 
 
-
-
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/abozaid-ibrahim/repo.svg?style=for-the-badge
+[contributors-url]: https://github.com/abozaid-ibrahim/repo/graphs/contributors
+[issues-shield]: https://img.shields.io/github/issues/abozaid-ibrahim/repo.svg?style=for-the-badge
+[issues-url]: https://github.com/abozaid-ibrahim/repo/issues
+[license-shield]: https://img.shields.io/github/license/abozaid-ibrahim/repo.svg?style=for-the-badge
+[license-url]: https://github.com/abozaid-ibrahim/MoviesApplication/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/abozaid-ibrahim
