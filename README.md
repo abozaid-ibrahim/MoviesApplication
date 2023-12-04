@@ -67,11 +67,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+IOS application that displays the list of trending movies, when we select one movie it shows more details about it. As a data provider for more [details](./Requirements.pdf) 
+
 | List | Details |
 |  :---:  |  :---:  |
-| <a href="./images/list.png" width=40%/> | <a href="./images/details.png" width=40%/> |
-
-IOS application that displays the list of trending movies, when we select one movie it shows more details about it. As a data provider for more [details](./Requirements.pdf) 
+| <img src="./images/list.png" height=700/> | <img src="./images/details.png" height=700 /> |
 
 
 ### Built With
