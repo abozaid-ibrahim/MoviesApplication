@@ -8,26 +8,21 @@
 import Combine
 import Foundation
 @testable import MoviesApplication
+
 struct MockMovieAPI: APIClient {
     var baseUrl: String = ""
     let isSuccess: Bool
     let endPointPath: String
 
-    func fetchData<T>(for _: MoviesApplication.EndPoint) -> AnyPublisher<T, Error> where T: Decodable {
+    func fetchData<T>(for _: MoviesApplication.EndPoint) async throws -> T where T: Decodable {
         guard isSuccess else {
-            return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
+            throw NetworkError.invalidURL
         }
 
         if endPointPath == EndPointPath.details.rawValue {
-            let details = MovieDetails(title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())
-            return Just(details as! T)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
+            return MovieDetails(title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date()) as! T
         } else {
-            let results = MovieResults(results: [Movie(id: 1, title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())])
-            return Just(results as! T)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
+            return MovieResults(results: [Movie(id: 1, title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())]) as! T
         }
     }
 

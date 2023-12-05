@@ -11,8 +11,8 @@ import Foundation
 protocol MovieDataSource {
     var fetchMoviesState: PaginationState { get }
 
-    func fetchMovies() -> AnyPublisher<MovieResults, Error>
-    func fetchMovieDetail(movieID: Int) -> AnyPublisher<MovieDetails, Error>
+    func fetchMovies() async throws -> MovieResults
+    func fetchMovieDetail(movieID: Int) async throws -> MovieDetails
 }
 
 /// Define a clear boundary for managing the network/API interactions and establishing the pagination configuration.
@@ -27,32 +27,33 @@ final class MovieAPIDataSource: MovieDataSource {
         self.apiClient = apiClient
     }
 
-    func fetchMovies() -> AnyPublisher<MovieResults, Error> {
+    func fetchMovies() async throws -> MovieResults {
         currentPage += 1
         fetchMoviesState = .isLoading
+
         guard currentPage <= totalPages else {
             // No more pages to load
             fetchMoviesState = .error
             currentPage -= 1
-            return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
+            throw NetworkError.invalidURL
         }
 
-        return apiClient.fetchData(for: EndPoint(path: "discover/movie", method: .get, parameters: ["page": currentPage]))
-            .receive(on: DispatchQueue.main) // Ensure UI updates are on the main thread
-            .handleEvents(receiveCompletion: { [weak self] completion in
-                guard let strongSelf = self else { return }
-                switch completion {
-                case .finished:
-                    strongSelf.fetchMoviesState = .idle
-                case .failure:
-                    strongSelf.currentPage -= 1
-                    strongSelf.fetchMoviesState = .error
-                }
-            })
-            .eraseToAnyPublisher()
+        do {
+            let movieData: MovieResults = try await apiClient.fetchData(for: EndPoint(path: "discover/movie", method: .get, parameters: ["page": currentPage]))
+            fetchMoviesState = .idle
+            return movieData
+        } catch {
+            currentPage -= 1
+            fetchMoviesState = .error
+            throw error
+        }
     }
 
-    func fetchMovieDetail(movieID: Int) -> AnyPublisher<MovieDetails, Error> {
-        return apiClient.fetchData(for: EndPoint(path: "movie/\(movieID)", method: .get, parameters: [:]))
+    func fetchMovieDetail(movieID: Int) async throws -> MovieDetails {
+        do {
+            return try await apiClient.fetchData(for: EndPoint(path: "movie/\(movieID)", method: .get, parameters: [:]))
+        } catch {
+            throw error
+        }
     }
 }

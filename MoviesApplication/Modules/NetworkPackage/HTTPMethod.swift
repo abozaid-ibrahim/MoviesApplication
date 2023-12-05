@@ -11,7 +11,7 @@ import Foundation
 protocol APIClient {
     var baseUrl: String { get }
 
-    func fetchData<T: Decodable>(for endpoint: EndPoint) -> AnyPublisher<T, Error>
+    func fetchData<T: Decodable>(for endpoint: EndPoint) async throws -> T
 }
 
 struct EndPoint {

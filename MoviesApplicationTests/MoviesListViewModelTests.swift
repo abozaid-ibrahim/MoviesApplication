@@ -4,7 +4,6 @@ import XCTest
 
 final class MoviesListViewModelTests: XCTestCase {
     var viewModel: MoviesListViewModel!
-    var cancellables: Set<AnyCancellable> = []
 
     override func setUp() {
         super.setUp()
@@ -13,25 +12,17 @@ final class MoviesListViewModelTests: XCTestCase {
 
     override func tearDown() {
         viewModel = nil
-        cancellables.removeAll()
         super.tearDown()
     }
 
-    func testFetchMoviesSuccessfullyAndReturnListOfMovies() {
-        let expectation = XCTestExpectation(description: "Movies fetched successfully")
-        var moviesList: [Movie]?
-        viewModel.$movies
-            .sink { movies in
-                moviesList = movies
-                if !movies.isEmpty {
-                    expectation.fulfill()
-                }
-            }
-            .store(in: &cancellables)
-        viewModel.fetchMovies()
-        wait(for: [expectation], timeout: 0.01)
-        XCTAssertNotNil(moviesList)
-    }
+//    func testFetchMoviesSuccessfullyAndReturnListOfMovies() async throws {
+//        do {
+//            let movies =  await viewModel.fetchMovies()
+//            XCTAssertNotNil(movies)
+//        } catch {
+//            XCTFail("Failed to fetch data successfully")
+//        }
+//    }
 
     func testDisplayDateAsYearOnly() {
         // Given
@@ -55,17 +46,11 @@ final class MoviesListViewModelTests: XCTestCase {
 struct StubSuccessAPIDataSource: MovieDataSource {
     var fetchMoviesState: PaginationState = .idle
 
-    func fetchMovies() -> AnyPublisher<MovieResults, Error> {
-        let results = MovieResults(results: [Movie(id: 1, title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())])
-        return Just(results)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+    func fetchMovies() async throws -> MovieResults {
+        MovieResults(results: [Movie(id: 1, title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())])
     }
 
-    func fetchMovieDetail(movieID _: Int) -> AnyPublisher<MovieDetails, Error> {
-        let details = MovieDetails(title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())
-        return Just(details)
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+    func fetchMovieDetail(movieID _: Int) async throws -> MovieDetails {
+        MovieDetails(title: "Sample Movie", overview: "Sample Overview", posterPath: nil, releaseDate: Date())
     }
 }

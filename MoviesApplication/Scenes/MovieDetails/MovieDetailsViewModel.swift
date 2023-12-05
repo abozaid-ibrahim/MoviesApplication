@@ -10,6 +10,7 @@ import Foundation
 
 final class MovieDetailsViewModel: ObservableObject {
     @Published var movieDetails: MovieDetails?
+    @Published var error: Error?
 
     private var cancellables: Set<AnyCancellable> = []
     private let dataSource: MovieDataSource
@@ -18,29 +19,23 @@ final class MovieDetailsViewModel: ObservableObject {
         self.dataSource = dataSource
     }
 
-    func fetchMovieDetail(movieID: Int, completion: @escaping (MovieDetails) -> Void) {
-        dataSource.fetchMovieDetail(movieID: movieID)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
-                    print("Error: \(error.localizedDescription)")
+    func fetchMovieDetail(movieID: Int) {
+        Task {
+            do {
+                let movieDetail = try await dataSource.fetchMovieDetail(movieID: movieID)
+                DispatchQueue.main.async {
+                    self.movieDetails = movieDetail
                 }
-            }, receiveValue: { [weak self] movieDetail in
-                self?.movieDetails = movieDetail
-                completion(movieDetail)
-            })
-            .store(in: &cancellables)
+            } catch {
+                self.error = error
+            }
+        }
     }
 
     var dateDisplay: String {
         guard let currentDate = movieDetails?.releaseDate else { return "" }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
-
         return dateFormatter.string(from: currentDate)
     }
 
