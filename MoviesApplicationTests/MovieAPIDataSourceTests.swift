@@ -4,11 +4,9 @@ import XCTest
 
 final class MovieAPIDataSourceTests: XCTestCase {
     var dataSource: MovieAPIDataSource!
-    var cancellables: Set<AnyCancellable> = []
 
     override func tearDown() {
         dataSource = nil
-        cancellables.removeAll()
         super.tearDown()
     }
 

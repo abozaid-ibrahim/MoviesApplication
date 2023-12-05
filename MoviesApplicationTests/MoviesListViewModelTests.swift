@@ -15,15 +15,6 @@ final class MoviesListViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-//    func testFetchMoviesSuccessfullyAndReturnListOfMovies() async throws {
-//        do {
-//            let movies =  await viewModel.fetchMovies()
-//            XCTAssertNotNil(movies)
-//        } catch {
-//            XCTFail("Failed to fetch data successfully")
-//        }
-//    }
-
     func testDisplayDateAsYearOnly() {
         // Given
         let dateFormatter = DateFormatter()
