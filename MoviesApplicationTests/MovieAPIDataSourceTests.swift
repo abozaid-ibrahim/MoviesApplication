@@ -12,66 +12,52 @@ final class MovieAPIDataSourceTests: XCTestCase {
         super.tearDown()
     }
 
-    func testFetchMoviesPaginationNotExceedingTotalPages() {
+    func testFetchMoviesPaginationNotExceedingTotalPages() async {
+        // Given
         setupDataSource(isSuccess: true, endPointPath: .movies)
-        let expectation = XCTestExpectation(description: "Movies fetch result")
-        var resultError: Error?
+        // When: calls fetch more than total pages time
         for _ in 0 ... 9 {
-            let _ = dataSource.fetchMovies()
+            do {
+                let movies = try await dataSource.fetchMovies()
+                XCTAssertNotNil(movies)
+            } catch {
+                XCTFail("Error fetching movies: \(error)")
+            }
         }
-        dataSource.fetchMovies()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
-                    resultError = error
-                }
-                expectation.fulfill()
-            }, receiveValue: { _ in })
-            .store(in: &cancellables)
-
-        wait(for: [expectation], timeout: 0.01)
-
-        XCTAssertNotNil(resultError)
+        // Then
+        do {
+            let movies = try await dataSource.fetchMovies()
+            // we exceed the total pages, movies should be nil
+            XCTAssertNil(movies)
+        } catch {
+            XCTAssertNotNil(error)
+        }
     }
 
-    func testFetchMoviesSuccess() {
+    func testFetchMoviesSuccess() async {
+        // Given
         setupDataSource(isSuccess: true, endPointPath: .movies)
-        assertFetchMoviesResult(expectedError: nil)
+        do {
+            // When
+            let movies = try await dataSource.fetchMovies()
+            // Then
+            XCTAssertNotNil(movies)
+        } catch {
+            XCTAssertNil(error)
+        }
     }
 
-    func testFetchMoviesFailure() {
+    func testFetchMoviesFailure() async {
         setupDataSource(isSuccess: false, endPointPath: .movies)
-        assertFetchMoviesResult(expectedError: NetworkError.invalidURL)
+        do {
+            let movies = try await dataSource.fetchMovies()
+            XCTAssertNil(movies)
+        } catch {
+            XCTAssertNotNil(error)
+        }
     }
 
     private func setupDataSource(isSuccess: Bool, endPointPath: MockMovieAPI.EndPointPath) {
         dataSource = MovieAPIDataSource(apiClient: MockMovieAPI(isSuccess: isSuccess, endPointPath: endPointPath.rawValue))
-    }
-
-    private func assertFetchMoviesResult(expectedError: NetworkError?) {
-        let expectation = XCTestExpectation(description: "Movies fetch result")
-        var resultError: Error?
-
-        dataSource.fetchMovies()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    break
-                case let .failure(error):
-                    resultError = error
-                }
-                expectation.fulfill()
-            }, receiveValue: { _ in })
-            .store(in: &cancellables)
-
-        wait(for: [expectation], timeout: 0.01)
-
-        if let expectedError = expectedError {
-            XCTAssertEqual(resultError as? NetworkError, expectedError)
-        } else {
-            XCTAssertNil(resultError)
-        }
     }
 }

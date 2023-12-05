@@ -21,9 +21,9 @@ struct MovieAPIClient: APIClient {
         return decoder
     }()
 
-    func fetchData<T: Decodable>(for endpoint: EndPoint) -> AnyPublisher<T, Error> {
+    func fetchData<T: Decodable>(for endpoint: EndPoint) async throws -> T {
         guard var urlComponents = URLComponents(string: "\(baseUrl)\(endpoint.path)") else {
-            return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
+            throw NetworkError.invalidURL
         }
         // Add common query parameter for all requests
         var queryItems = [URLQueryItem(name: "api_key", value: apiKey), URLQueryItem(name: "language", value: "en-US")]
@@ -35,19 +35,14 @@ struct MovieAPIClient: APIClient {
             }
             urlComponents.queryItems = queryItems
         } else {
-            return Fail(error: NetworkError.unsupportedMethod).eraseToAnyPublisher()
+            throw NetworkError.unsupportedMethod
         }
 
         guard let url = urlComponents.url else {
-            return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
+            throw NetworkError.invalidURL
         }
 
-        var request = URLRequest(url: url)
-        request.httpMethod = endpoint.method.rawValue
-
-        return URLSession.shared.dataTaskPublisher(for: request)
-            .map(\.data)
-            .decode(type: T.self, decoder: jsonDecoder)
-            .eraseToAnyPublisher()
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return try jsonDecoder.decode(T.self, from: data)
     }
 }
