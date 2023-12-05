@@ -23,7 +23,7 @@ final class MovieAPIDataSource: MovieDataSource {
     private var totalPages = 10
     var fetchMoviesState: PaginationState = .idle
 
-    init(apiClient: APIClient = MovieAPIClient()) {
+    init(apiClient: APIClient = NetworkAPIClient()) {
         self.apiClient = apiClient
     }
 

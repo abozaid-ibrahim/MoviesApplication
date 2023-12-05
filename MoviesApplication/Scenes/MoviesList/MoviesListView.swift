@@ -25,9 +25,7 @@ struct MoviesListView: View {
             .navigationBarTitle("Movies List")
         }
         .onAppear {
-            Task {
-                try? await self.viewModel.fetchMovies()
-            }
+            self.viewModel.fetchMovies()
         }
     }
 
