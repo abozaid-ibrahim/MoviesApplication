@@ -5,14 +5,7 @@
 //  Created by abuzeid on 29.11.23.
 //
 
-import Combine
 import Foundation
-
-protocol APIClient {
-    var baseUrl: String { get }
-
-    func fetchData<T: Decodable>(for endpoint: EndPoint) async throws -> T
-}
 
 struct EndPoint {
     let path: String
