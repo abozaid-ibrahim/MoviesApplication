@@ -38,8 +38,8 @@ struct MovieDetailsView: View {
                 }
             }
         }
-        .onAppear {
-            self.viewModel.fetchMovieDetail(movieID: movieID)
+        .task {
+            await viewModel.fetchMovieDetail(movieID: movieID)
         }
         .navigationBarHidden(false)
         .edgesIgnoringSafeArea(.top)

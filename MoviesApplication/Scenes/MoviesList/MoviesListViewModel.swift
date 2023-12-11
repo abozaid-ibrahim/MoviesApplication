@@ -23,17 +23,15 @@ final class MoviesListViewModel: ObservableObject {
         return dataSource.fetchMoviesState
     }
 
-    func fetchMovies() {
-        Task {
-            do {
-                let result = try await dataSource.fetchMovies()
-                DispatchQueue.main.async {
-                    self.movies += result.results
-                }
-            } catch {
-                // TODO: error handling
-                print("Error: \(error.localizedDescription)")
+    func fetchMovies() async {
+        do {
+            let result = try await dataSource.fetchMovies()
+            await MainActor.run {
+                self.movies += result.results
             }
+        } catch {
+            // TODO: error handling
+            print("Error: \(error.localizedDescription)")
         }
     }
 

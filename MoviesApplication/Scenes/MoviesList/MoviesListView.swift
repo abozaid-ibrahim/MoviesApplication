@@ -14,18 +14,16 @@ struct MoviesListView: View {
         NavigationView {
             List(viewModel.movies) { movie in
                 NavigationLink(destination: MovieDetailsView(movieID: movie.id)) {
-                    VStack {
-                        listViewRow(for: movie)
-                        if viewModel.movies.isLastItem(movie) {
-                            lastRowView
-                        }
+                    listViewRow(for: movie)
+                    if viewModel.movies.isLastItem(movie) {
+                        lastRowView
                     }
                 }
             }
             .navigationBarTitle("Movies List")
         }
-        .onAppear {
-            self.viewModel.fetchMovies()
+        .task {
+            await viewModel.fetchMovies()
         }
     }
 
@@ -58,9 +56,8 @@ struct MoviesListView: View {
                 EmptyView()
             }
         }
-
-        .onAppear {
-            self.viewModel.fetchMovies()
+        .task {
+            await viewModel.fetchMovies()
         }
     }
 

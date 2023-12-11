@@ -19,16 +19,14 @@ final class MovieDetailsViewModel: ObservableObject {
         self.dataSource = dataSource
     }
 
-    func fetchMovieDetail(movieID: Int) {
-        Task {
-            do {
-                let movieDetail = try await dataSource.fetchMovieDetail(movieID: movieID)
-                DispatchQueue.main.async {
-                    self.movieDetails = movieDetail
-                }
-            } catch {
-                self.error = error
+    func fetchMovieDetail(movieID: Int) async {
+        do {
+            let movieDetail = try await dataSource.fetchMovieDetail(movieID: movieID)
+            await MainActor.run {
+                self.movieDetails = movieDetail
             }
+        } catch {
+            self.error = error
         }
     }
 
